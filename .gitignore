@@ -1,0 +1,15 @@
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+.env
+.idea
+tmp
+bin
+sct
+.vscode
+requests
+.air.toml

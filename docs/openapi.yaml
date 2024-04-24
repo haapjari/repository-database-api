@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Repository Database API
+  version: "1.0.0"
+  description: API for Repository Entries.
+
+paths:
+    /api/v1/repos:
+        get:
+          summary: Get All Repositories
+          responses:
+            '200':
+              description: Get All Repositories
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Repository'
+        post:
+          summary: Create a New Repository
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Repository'
+          responses:
+            '201':
+              description: Created a Repository
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Repository'
+    /api/v1/repos/{id}:
+        get:
+          summary: Get a Repository By ID
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            '200':
+              description: Get a Single Repository
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Repository'
+        put:
+          summary: Update a Repository By ID
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: string
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Repository'
+          responses:
+            '200':
+              description: Updated Repository
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Repository'
+
+        delete:
+          summary: Delete a Repository By ID
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            '204':
+              description: Repository Deleted
+components:
+  schemas:
+    Repository:
+      type: object
+      properties:
+        name:
+          type: string
+        full_name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        stargazer_count:
+          type: integer
+        language:
+          type: string
+        open_issues:
+          type: integer
+        closed_issues:
+          type: integer
+        open_pull_request_count:
+          type: integer
+        closed_pull_request_count:
+          type: integer
+        forks:
+          type: integer
+        watcher_count:
+          type: integer
+        commit_count:
+          type: integer
+        network_count:
+          type: integer
+        latest_release:
+          type: string
+        total_releases_count:
+          type: integer
+        contributor_count:
+          type: integer
+        third_party_loc:
+          type: integer
+        self_written_loc:
+          type: integer
