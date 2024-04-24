@@ -6,7 +6,7 @@ Hello! I am Jari Haapasaari ([mail](mailto:haapjari@gmail.com)). This project is
 
 ## About
 
-- TBD
+- This component is a RESTful API that provides CRUD operations for a Repository Database.
 
 ***
 
@@ -24,5 +24,76 @@ Hello! I am Jari Haapasaari ([mail](mailto:haapjari@gmail.com)). This project is
 
 ### Examples
 
+#### GET /api/v1/repos
+
 ```bash
+curl -X GET "http://localhost:8080/api/v1/repos" -H "Accept: application/json"
+```
+
+#### POST /api/v1/repos
+
+```bash 
+curl -X POST "http://localhost:8080/api/v1/repos" \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+-d '{
+"name": "new-repo",
+"full_name": "username/new-repo",
+"created_at": "2021-01-01T00:00:00Z",
+"stargazer_count": 0,
+"language": "Go",
+"open_issues": 0,
+"closed_issues": 0,
+"open_pull_request_count": 0,
+"closed_pull_request_count": 0,
+"forks": 0,
+"watcher_count": 0,
+"commit_count": 0,
+"network_count": 0,
+"latest_release": "v1.0.0",
+"total_releases_count": 1,
+"contributor_count": 1,
+"third_party_loc": 1000,
+"self_written_loc": 2000
+}'
+```
+
+#### GET /api/v1/repos/{id}
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/repos/{id}" -H "Accept: application/json"
+```
+
+#### PUT /api/v1/repos/{id}
+
+```bash
+curl -X PUT "http://localhost:8080/api/v1/repos/{id}" \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     -d '{
+          "name": "updated-repo",
+          "full_name": "username/updated-repo",
+          "created_at": "2021-01-02T00:00:00Z",
+          "stargazer_count": 1,
+          "language": "Python",
+          "open_issues": 1,
+          "closed_issues": 1,
+          "open_pull_request_count": 1,
+          "closed_pull_request_count": 1,
+          "forks": 1,
+          "watcher_count": 1,
+          "commit_count": 1,
+          "network_count": 1,
+          "latest_release": "v1.0.1",
+          "total_releases_count": 2,
+          "contributor_count": 2,
+          "third_party_loc": 1200,
+          "self_written_loc": 2200
+        }'
+```
+
+#### DELETE /api/v1/repos/{id}
+
+```bash
+curl -X DELETE "http://localhost:8080/api/v1/repos/{id}"
 ```

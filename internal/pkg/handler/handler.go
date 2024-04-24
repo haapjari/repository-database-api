@@ -2,16 +2,19 @@ package handler
 
 import (
 	"github.com/haapjari/repository-database-api/internal/pkg/cfg"
+	"gorm.io/gorm"
 	"net/http"
 )
 
 type Handler struct {
-	Config *cfg.Config
+	conf *cfg.Config
+	db   *gorm.DB
 }
 
-func NewHandler(config *cfg.Config) *Handler {
+func NewHandler(config *cfg.Config, db *gorm.DB) *Handler {
 	return &Handler{
-		Config: config,
+		conf: config,
+		db:   db,
 	}
 }
 
