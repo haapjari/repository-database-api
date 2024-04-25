@@ -10,8 +10,8 @@ import (
 	"strings"
 )
 
-func (h *Handler) GetAllRepositories(w http.ResponseWriter, r *http.Request) {
-	repos := make([]model.Repository, 0)
+func (h *Handler) GetAllNormalizedRepos(w http.ResponseWriter, r *http.Request) {
+	repos := make([]model.NormalizedRepository, 0)
 	result := h.db.Find(&repos)
 	if result.Error != nil {
 		http.Error(w, "Retrieve Error", http.StatusInternalServerError)
@@ -30,8 +30,8 @@ func (h *Handler) GetAllRepositories(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) CreateRepository(w http.ResponseWriter, r *http.Request) {
-	var repo model.Repository
+func (h *Handler) CreateNormalizedRepo(w http.ResponseWriter, r *http.Request) {
+	var repo model.NormalizedRepository
 	if err := json.NewDecoder(r.Body).Decode(&repo); err != nil {
 		http.Error(w, "Invalid Request", http.StatusBadRequest)
 		return
@@ -51,11 +51,11 @@ func (h *Handler) CreateRepository(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) GetRepositoryByID(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetNormalizedRepoByID(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	id := parts[len(parts)-1]
 
-	var repo model.Repository
+	var repo model.NormalizedRepository
 	result := h.db.First(&repo, "id = ?", id)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		http.NotFound(w, r)
@@ -76,11 +76,11 @@ func (h *Handler) GetRepositoryByID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) UpdateRepositoryByID(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) UpdateNormalizedRepoByID(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	id := parts[len(parts)-1]
 
-	var providedRepository model.Repository
+	var providedRepository model.NormalizedRepository
 
 	err := json.NewDecoder(r.Body).Decode(&providedRepository)
 	if err != nil {
@@ -88,7 +88,7 @@ func (h *Handler) UpdateRepositoryByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var repo model.Repository
+	var repo model.NormalizedRepository
 	if err = h.db.First(&repo, "id = ?", id).Error; err != nil {
 		http.NotFound(w, r)
 		return
@@ -97,11 +97,11 @@ func (h *Handler) UpdateRepositoryByID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func (h *Handler) DeleteRepositoryByID(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) DeleteNormalizedRepoByID(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.Path, "/")
 	id := parts[len(parts)-1]
 
-	result := h.db.Delete(&model.Repository{}, "id = ?", id)
+	result := h.db.Delete(&model.NormalizedRepository{}, "id = ?", id)
 	if result.Error != nil {
 		http.Error(w, "Delete Error", http.StatusInternalServerError)
 		return
