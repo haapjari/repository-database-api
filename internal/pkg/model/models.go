@@ -1,6 +1,7 @@
 package model
 
 type Repository struct {
+	ID                     uint   `gorm:"primaryKey;autoIncrement" json:"id"`
 	Name                   string `json:"name"`
 	FullName               string `json:"full_name"`
 	CreatedAt              string `json:"created_at"`

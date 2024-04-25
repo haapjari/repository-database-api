@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"log/slog"
 	"net/http"
+	"strings"
 )
 
 func (h *Handler) GetAllRepositories(w http.ResponseWriter, r *http.Request) {
@@ -42,11 +43,17 @@ func (h *Handler) CreateRepository(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+
+	if err := json.NewEncoder(w).Encode(repo); err != nil {
+		http.Error(w, "JSON Encode Error", http.StatusInternalServerError)
+	}
 }
 
 func (h *Handler) GetRepositoryByID(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+	parts := strings.Split(r.URL.Path, "/")
+	id := parts[len(parts)-1]
 
 	var repo model.Repository
 	result := h.db.First(&repo, "id = ?", id)
@@ -70,8 +77,11 @@ func (h *Handler) GetRepositoryByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) UpdateRepositoryByID(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+	parts := strings.Split(r.URL.Path, "/")
+	id := parts[len(parts)-1]
+
 	var providedRepository model.Repository
+
 	err := json.NewDecoder(r.Body).Decode(&providedRepository)
 	if err != nil {
 		http.Error(w, "Invalid Input", http.StatusBadRequest)
@@ -88,7 +98,9 @@ func (h *Handler) UpdateRepositoryByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) DeleteRepositoryByID(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+	parts := strings.Split(r.URL.Path, "/")
+	id := parts[len(parts)-1]
+
 	result := h.db.Delete(&model.Repository{}, "id = ?", id)
 	if result.Error != nil {
 		http.Error(w, "Delete Error", http.StatusInternalServerError)

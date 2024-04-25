@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"github.com/haapjari/repository-database-api/internal/pkg/model"
 	"github.com/haapjari/repository-database-api/internal/pkg/util"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -26,9 +27,15 @@ func NewDatabase(opt *Options) *Database {
 	}
 }
 
-func (d *Database) Connect() (*gorm.DB, error) {
+func (d *Database) ConnectAndMigrate() (*gorm.DB, error) {
 	db, err := gorm.Open(postgres.Open(fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=%s",
 		d.opt.Host, d.opt.Username, d.opt.Password, d.opt.Database, d.opt.Port, d.opt.TimeZone)), &gorm.Config{})
+	if err != nil {
+		return nil, util.Error(err)
+	}
+
+	// Auto Migrate
+	err = db.AutoMigrate(&model.Repository{})
 	if err != nil {
 		return nil, util.Error(err)
 	}

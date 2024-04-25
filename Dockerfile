@@ -27,6 +27,6 @@ FROM scratch
 
 WORKDIR /workspace
 
-COPY --from=build /workspace/rda .
+COPY --from=build /workspace/rda /workspace/rda
 
-ENTRYPOINT ["./rda "]
+ENTRYPOINT ["/workspace/rda"]

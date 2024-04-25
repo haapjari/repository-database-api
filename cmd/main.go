@@ -28,7 +28,7 @@ func main() {
 		mux = http.NewServeMux()
 	)
 
-	d, err := db.Connect()
+	d, err := db.ConnectAndMigrate()
 	if err != nil {
 		panic("unable to connect to the database: " + err.Error())
 	}

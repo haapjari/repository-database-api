@@ -17,7 +17,7 @@ type Config struct {
 
 const (
 	PortKey       = "PORT"
-	DBUserKey     = "DB_USER"
+	DBUserKey     = "DB_USERNAME"
 	DBPasswordKey = "DB_PASSWORD"
 	DBHostKey     = "DB_HOST"
 	DBPortKey     = "DB_PORT"
