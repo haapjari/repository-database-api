@@ -97,3 +97,77 @@ curl -X PUT "http://localhost:8080/api/v1/repos/{id}" \
 ```bash
 curl -X DELETE "http://localhost:8080/api/v1/repos/{id}"
 ```
+
+#### GET /api/v1/repos/normalized
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/repos/normalized" -H "Accept: application/json"
+```
+
+#### POST /api/v1/repos/normalized
+
+```bash
+curl -X POST "http://localhost:8080/api/v1/repos/normalized" \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+-d '{
+    "name": "new-normalized-repo",
+    "full_name": "username/new-normalized-repo",
+    "created_at": 1622541600.0,
+    "stargazer_count": 0.0,
+    "language": "Go",
+    "open_issues": 0.0,
+    "closed_issues": 0.0,
+    "open_pull_request_count": 0.0,
+    "closed_pull_request_count": 0.0,
+    "forks": 0.0,
+    "watcher_count": 0.0,
+    "commit_count": 0.0,
+    "network_count": 0.0,
+    "latest_release": 1.0,
+    "total_releases_count": 1.0,
+    "contributor_count": 1.0,
+    "third_party_loc": 1000.0,
+    "self_written_loc": 2000.0
+}'
+```
+
+#### GET /api/v1/repos/normalized/{id}
+
+```bash
+curl -X GET "http://localhost:8080/api/v1/repos/normalized/1" -H "Accept: application/json"
+```
+
+#### PUT /api/v1/repos/normalized/{id}
+
+```bash
+curl -X PUT "http://localhost:8080/api/v1/repos/normalized/1" \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+-d '{
+    "name": "updated-normalized-repo",
+    "full_name": "username/updated-normalized-repo",
+    "created_at": 1622541700.0,
+    "stargazer_count": 10.0,
+    "language": "Python",
+    "open_issues": 5.0,
+    "closed_issues": 4.0,
+    "open_pull_request_count": 3.0,
+    "closed_pull_request_count": 2.0,
+    "forks": 6.0,
+    "watcher_count": 7.0,
+    "commit_count": 8.0,
+    "network_count": 9.0,
+    "latest_release": 2.0,
+    "total_releases_count": 3.0,
+    "contributor_count": 4.0,
+    "third_party_loc": 1200.0,
+    "self_written_loc": 2200.0
+}'
+``` 
+
+#### DELETE /api/v1/repos/normalized/{id}
+
+```bash
+curl -X DELETE "http://localhost:8080/api/v1/repos/normalized/1"
+```

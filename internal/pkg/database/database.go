@@ -34,8 +34,7 @@ func (d *Database) ConnectAndMigrate() (*gorm.DB, error) {
 		return nil, util.Error(err)
 	}
 
-	// Auto Migrate
-	err = db.AutoMigrate(&model.Repository{})
+	err = db.AutoMigrate(&model.Repository{}, &model.NormalizedRepository{})
 	if err != nil {
 		return nil, util.Error(err)
 	}

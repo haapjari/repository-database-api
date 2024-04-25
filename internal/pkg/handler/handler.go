@@ -23,9 +23,9 @@ func (h *Handler) SetupRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/api/v1/repos", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			h.GetAllRepositories(w, r)
+			h.GetAllRepos(w, r)
 		case http.MethodPost:
-			h.CreateRepository(w, r)
+			h.CreateRepo(w, r)
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
@@ -33,11 +33,35 @@ func (h *Handler) SetupRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/api/v1/repos/{id}", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 		case http.MethodGet:
-			h.GetRepositoryByID(w, r)
+			h.GetRepoByID(w, r)
 		case http.MethodPut:
-			h.UpdateRepositoryByID(w, r)
+			h.UpdateRepoByID(w, r)
 		case http.MethodDelete:
-			h.DeleteRepositoryByID(w, r)
+			h.DeleteRepoByID(w, r)
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	mux.HandleFunc("/api/v1/repos/normalized", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			h.GetAllNormalizedRepos(w, r)
+		case http.MethodPost:
+			h.CreateNormalizedRepo(w, r)
+		default:
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	mux.HandleFunc("/api/v1/repos/normalized/{id}", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case http.MethodGet:
+			h.GetNormalizedRepoByID(w, r)
+		case http.MethodPut:
+			h.UpdateNormalizedRepoByID(w, r)
+		case http.MethodDelete:
+			h.DeleteNormalizedRepoByID(w, r)
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}

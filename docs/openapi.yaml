@@ -81,6 +81,83 @@ paths:
           responses:
             '204':
               description: Repository Deleted
+    /api/v1/repos/normalized:
+      get:
+        summary: Get All Normalized Repositories
+        responses:
+          '200':
+            description: List of all normalized repositories
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/NormalizedRepository'
+      post:
+        summary: Create a New Normalized Repository
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NormalizedRepository'
+        responses:
+          '201':
+            description: Created a new normalized repository
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NormalizedRepository'
+    /api/v1/repos/normalized/{id}:
+      get:
+        summary: Get a Normalized Repository By ID
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: A single normalized repository
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NormalizedRepository'
+      put:
+        summary: Update a Normalized Repository By ID
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NormalizedRepository'
+        responses:
+          '200':
+            description: Success
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/NormalizedRepository'
+      delete:
+        summary: Delete a Normalized Repository By ID
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+        responses:
+          '204':
+            description: Deleted
+
+
 components:
   schemas:
     Repository:
@@ -89,7 +166,7 @@ components:
         id:
           type: integer
           format: int64
-          description: Unique identifier for the repository
+          description: "Unique identifier for the repository"
         name:
           type: string
         full_name:
@@ -97,6 +174,7 @@ components:
         created_at:
           type: string
           format: date-time
+          description: "ISO8601 formatted creation datetime"
         stargazer_count:
           type: integer
         language:
@@ -113,6 +191,8 @@ components:
           type: integer
         watcher_count:
           type: integer
+        subscriber_count:
+          type: integer
         commit_count:
           type: integer
         network_count:
@@ -127,3 +207,64 @@ components:
           type: integer
         self_written_loc:
           type: integer
+
+    NormalizedRepository:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        full_name:
+          type: string
+        language:
+          type: string
+        latest_release:
+          type: number
+          format: double
+        created_at:
+          type: number
+          format: double
+        stargazer_count:
+          type: number
+          format: double
+        open_issues:
+          type: number
+          format: double
+        closed_issues:
+          type: number
+          format: double
+        open_pull_request_count:
+          type: number
+          format: double
+        closed_pull_request_count:
+          type: number
+          format: double
+        forks:
+          type: number
+          format: double
+        watcher_count:
+          type: number
+          format: double
+        subscriber_count:
+          type: number
+          format: double
+        commit_count:
+          type: number
+          format: double
+        network_count:
+          type: number
+          format: double
+        total_releases_count:
+          type: number
+          format: double
+        contributor_count:
+          type: number
+          format: double
+        third_party_loc:
+          type: number
+          format: double
+        self_written_loc:
+          type: number
+          format: double
