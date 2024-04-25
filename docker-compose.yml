@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  database-api:
+    build: .
+    image: database-api:latest
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_NAME: "database"
+      DB_TIMEZONE: "Europe/Helsinki"
+    depends_on:
+      - database
+    networks:
+      - rpa-network
+
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - rpa-network
+
+volumes:
+  pgdata:
+
+networks:
+  rpa-network:
+    driver: bridge
+

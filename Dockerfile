@@ -12,20 +12,21 @@ ENV GOOS=linux \
 WORKDIR /workspace
 
 COPY go.mod go.sum ./
+
 RUN go mod download
 
 COPY . .
 
-RUN go build -o /workspace/rsa ./cmd/main.go
+RUN go build -o /workspace/rda ./cmd/main.go
 
 ##
 ## Final Stage
 ##
 
-FROM golang:latest
+FROM scratch
 
 WORKDIR /workspace
 
-COPY --from=build /workspace/rsa .
+COPY --from=build /workspace/rda /workspace/rda
 
-ENTRYPOINT ["./rsa"]
+ENTRYPOINT ["/workspace/rda"]
