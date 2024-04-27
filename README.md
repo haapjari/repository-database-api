@@ -48,6 +48,7 @@ curl -X POST "http://localhost:8080/api/v1/repos" \
 "closed_pull_request_count": 0,
 "forks": 0,
 "watcher_count": 0,
+"subscriber_count": 0,
 "commit_count": 0,
 "network_count": 0,
 "latest_release": "v1.0.0",
@@ -113,7 +114,7 @@ curl -X POST "http://localhost:8080/api/v1/repos/normalized" \
 -d '{
     "name": "new-normalized-repo",
     "full_name": "username/new-normalized-repo",
-    "created_at": 1622541600.0,
+    "created_at": 0.0,
     "stargazer_count": 0.0,
     "language": "Go",
     "open_issues": 0.0,
@@ -127,8 +128,8 @@ curl -X POST "http://localhost:8080/api/v1/repos/normalized" \
     "latest_release": 1.0,
     "total_releases_count": 1.0,
     "contributor_count": 1.0,
-    "third_party_loc": 1000.0,
-    "self_written_loc": 2000.0
+    "third_party_loc": 0.0,
+    "self_written_loc": 0.0 
 }'
 ```
 

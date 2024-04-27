@@ -5,9 +5,9 @@ services:
     build: .
     image: database-api:latest
     ports:
-      - "8080:8080"
+      - "9000:9000"
     environment:
-      PORT: "8080"
+      PORT: "9000"
       DB_HOST: "database"
       DB_PORT: "5432"
       DB_USERNAME: "postgres"

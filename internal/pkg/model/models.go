@@ -44,4 +44,7 @@ type NormalizedRepository struct {
 	ContributorCount       float64 `json:"contributor_count"`
 	ThirdPartyLOC          float64 `json:"third_party_loc"`
 	SelfWrittenLOC         float64 `json:"self_written_loc"`
+	Popularity             float64 `json:"popularity"`
+	Activity               float64 `json:"activity"`
+	Maturity               float64 `json:"maturity"`
 }
