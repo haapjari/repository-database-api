@@ -7,6 +7,10 @@ OUTPUT_PATH 			?= bin/repository-database-api
 ## Commands
 ##
 
+fmt:
+	gofmt -w ./...
+	goimports -w ./...
+
 run:
 	go run cmd/main.go
 .PHONY: run

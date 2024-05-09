@@ -32,6 +32,22 @@ paths:
                 application/json:
                   schema:
                     $ref: '#/components/schemas/Repository'
+        delete:
+          summary: Drop Column
+          parameters:
+            - in: query
+              name: table
+              schema:
+                type: string
+              description: Table to Modify
+            - in: query
+              name: column
+              schema:
+                type: string
+              description: Column to Drop from the Table
+          responses:
+            '200':
+              description: Drop Column
     /api/v1/repos/{id}:
         get:
           summary: Get a Repository By ID
@@ -268,3 +284,4 @@ components:
         self_written_loc:
           type: number
           format: double
+
