@@ -32,6 +32,17 @@ paths:
                 application/json:
                   schema:
                     $ref: '#/components/schemas/Repository'
+        delete:
+          summary: Drop Column
+          parameters:
+            - in: query
+              name: column
+              schema:
+                type: string
+              description: Column to Drop from the Table
+          responses:
+            '200':
+              description: Drop Column
     /api/v1/repos/{id}:
         get:
           summary: Get a Repository By ID
@@ -101,7 +112,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NormalizedRepository'
-        responses:
+      delete:
+        summary: Drop Column
+        parameters:
+          - in: query
+            name: column
+            schema:
+              type: string
+            description: Column to Drop from the Table
+      responses:
           '201':
             description: Created a new normalized repository
             content:
@@ -268,3 +287,4 @@ components:
         self_written_loc:
           type: number
           format: double
+
