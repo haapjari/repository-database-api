@@ -1,6 +1,7 @@
 package handler
 
 import  (
+	"fmt"
 	"encoding/json"
 	"errors"
 	"github.com/haapjari/repository-database-api/internal/pkg/model"
@@ -28,6 +29,14 @@ func (h *Handler) GetAllNormalizedRepos(w http.ResponseWriter, r *http.Request) 
 	if _, err = w.Write(b); err != nil {
 		slog.Warn("unable to write the response: " + err.Error())
 	}
+}
+
+func (h *Handler) DropColumnFromNormalizedRepositories(w http.ResponseWriter, r *http.Request) {
+	column := r.URL.Query().Get("column")
+	_ = h.db.Exec(fmt.Sprintf("ALTER TABLE normalized_repositories DROP COLUMN %s", column))
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 func (h *Handler) CreateNormalizedRepo(w http.ResponseWriter, r *http.Request) {

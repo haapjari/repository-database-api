@@ -36,11 +36,6 @@ paths:
           summary: Drop Column
           parameters:
             - in: query
-              name: table
-              schema:
-                type: string
-              description: Table to Modify
-            - in: query
               name: column
               schema:
                 type: string
@@ -117,7 +112,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NormalizedRepository'
-        responses:
+      delete:
+        summary: Drop Column
+        parameters:
+          - in: query
+            name: column
+            schema:
+              type: string
+            description: Column to Drop from the Table
+      responses:
           '201':
             description: Created a new normalized repository
             content:

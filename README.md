@@ -59,6 +59,12 @@ curl -X POST "http://localhost:8080/api/v1/repos" \
 }'
 ```
 
+#### DELETE /api/v1/repos?column=network_count
+
+```bash
+curl -X DELETE "http://localhost:8080/api/v1/repos?column=network_count" -H "Accept: application/json"
+```
+
 #### GET /api/v1/repos/{id}
 
 ```bash
@@ -171,4 +177,10 @@ curl -X PUT "http://localhost:8080/api/v1/repos/normalized/1" \
 
 ```bash
 curl -X DELETE "http://localhost:8080/api/v1/repos/normalized/1"
+```
+
+#### DELETE /api/v1/repos/normalized?column=network_count
+
+```bash
+curl -X DELETE "http://localhost:8080/api/v1/repos/normalized?column=network_count" -H "Accept: application/json"
 ```

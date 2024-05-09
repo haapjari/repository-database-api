@@ -26,6 +26,8 @@ func (h *Handler) SetupRoutes(mux *http.ServeMux) {
 			h.GetAllRepos(w, r)
 		case http.MethodPost:
 			h.CreateRepo(w, r)
+		case http.MethodDelete:
+			h.DropColumnFromRepositories(w, r)
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
@@ -49,6 +51,8 @@ func (h *Handler) SetupRoutes(mux *http.ServeMux) {
 			h.GetAllNormalizedRepos(w, r)
 		case http.MethodPost:
 			h.CreateNormalizedRepo(w, r)
+		case http.MethodDelete:
+			h.DropColumnFromNormalizedRepositories(w, r)
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
